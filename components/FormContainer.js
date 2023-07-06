@@ -5,17 +5,17 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 const FormContainer = ({ children }) => {
   return (
     <KeyboardAwareScrollView style={styles.container}>
-        {children}
+      {children}
     </KeyboardAwareScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        width: Dimensions.get('window').width,
-        paddingHorizontal: 20,
-        flex: 1,
-    }
+  container: {
+    width: Dimensions.get('window').width,
+    paddingHorizontal: 20,
+    flex: 1,
+  }
 })
 
 export default FormContainer;

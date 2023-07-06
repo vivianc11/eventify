@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import FormContainer from './FormContainer';
 import FormInput from './FormInput';
+import FormSubmitButton from './FormSubmitButton';
 
 const LoginForm = () => {
 
@@ -40,6 +41,9 @@ const LoginForm = () => {
               placeholder='********'
               autoCapitalize='none'
               secureTextEntry
+            />
+            <FormSubmitButton 
+              title='Login'
             />
           </>
         }}
