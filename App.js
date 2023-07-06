@@ -24,6 +24,7 @@ export default function App() {
           title='Sign Up'
         />
       </View>
+      
       <LoginForm />
     </View>
   );
