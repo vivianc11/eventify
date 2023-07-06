@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import LoginHeader from './components/LoginHeader';
 import LoginSelectorButton from './components/LoginSelectorButton';
+import LoginForm from './components/LoginForm';
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
           title='Sign Up'
         />
       </View>
+      <LoginForm />
     </View>
   );
 }
