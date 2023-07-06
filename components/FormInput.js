@@ -1,16 +1,22 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TextInput } from 'react-native';
 
-const FormInput = () => {
+const FormInput = ({ label, placeholder}) => {
   return (
     <View>
-      <Text></Text>
+      <View style={styles.labelContainer}>
+        <Text style={styles.emailLabel}>{label}</Text>
+      </View>
+      <TextInput
+        style={styles.emailInput} 
+        placeholder={placeholder}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-    
+
 })
 
 export default FormInput;
