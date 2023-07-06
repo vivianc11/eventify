@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import LoginHeader from './components/LoginHeader';
+import LoginSelectorButton from './components/LoginSelectorButton';
 
 export default function App() {
   return (
@@ -12,7 +13,16 @@ export default function App() {
           subHeading='Start Event Planning Now'
         />
       </View>
-      <StatusBar style="auto" />
+      <View style={styles.buttonContainer}>
+        <LoginSelectorButton 
+          style={styles.borderLeft}
+          title='Login'
+        />
+        <LoginSelectorButton 
+          style={styles.borderRight}
+          title='Sign Up'
+        />
+      </View>
     </View>
   );
 }
@@ -24,5 +34,17 @@ const styles = StyleSheet.create({
   },
   header: {
     height: 100,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    padding: 20
+  },
+  borderLeft: {
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8
+  },
+  borderRight: {
+    borderTopRightRadius: 8,
+    borderBottomRightRadius: 8
   },
 });
