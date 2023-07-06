@@ -1,10 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import LoginHeader from './components/LoginHeader';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <View style={styles.header}>
+        <LoginHeader 
+          leftHeading='Welcome '
+          rightHeading='Back'
+          subHeading='Start Event Planning Now'
+        />
+      </View>
       <StatusBar style="auto" />
     </View>
   );
@@ -13,8 +20,9 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 120,
+  },
+  header: {
+    height: 100,
   },
 });
