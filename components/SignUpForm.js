@@ -30,7 +30,13 @@ const SignUpForm = () => {
       <Formik
         initialValues={userInfo}
         validationSchema={validationSchema}
-        onSubmit=''
+        onSubmit={(values, formikActions) => {
+          setTimeout(() => {
+            console.log(values)
+            formikActions.resetForm()
+            formikActions.setSubmitting(false)
+          }, 2000);
+        }}
       >
         {({ values, errors, touched, isSubmitting, handleChange, handleBlur, handleSubmit }) => {
 
@@ -77,7 +83,11 @@ const SignUpForm = () => {
               onBlur={handleBlur('confirmPassword')}
               placeholder='********'
             />
-            <FormSubmitButton title='Sign Up' />
+            <FormSubmitButton 
+              submitting={isSubmitting} 
+              onPress={handleSubmit} 
+              title='Sign Up' 
+            />
           </>
         }}
 
