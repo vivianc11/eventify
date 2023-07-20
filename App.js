@@ -1,31 +1,41 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import LoginHeader from './components/LoginHeader';
 import LoginSelectorButton from './components/LoginSelectorButton';
 import LoginForm from './components/LoginForm';
+import SignUpForm from './components/SignUpForm';
 
 export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <LoginHeader 
+        <LoginHeader
           leftHeading='Welcome '
           rightHeading='Back'
           subHeading='Start Event Planning Now'
         />
       </View>
       <View style={styles.buttonContainer}>
-        <LoginSelectorButton 
+        <LoginSelectorButton
           style={styles.borderLeft}
           title='Login'
         />
-        <LoginSelectorButton 
+        <LoginSelectorButton
           style={styles.borderRight}
           title='Sign Up'
         />
       </View>
-      
-      <LoginForm />
+      <ScrollView
+        horizontal 
+        pagingEnabled 
+        showsHorizontalScrollIndicator={false}
+        scrollEventThrottle={16}
+      >
+        <LoginForm />
+        <ScrollView>
+          <SignUpForm />
+        </ScrollView>
+      </ScrollView>
     </View>
   );
 }

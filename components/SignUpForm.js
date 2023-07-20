@@ -3,6 +3,9 @@ import { View, Text, StyleSheet } from 'react-native';
 import FormContainer from './FormContainer';
 import { Formik } from 'formik';
 import FormSubmitButton from './FormSubmitButton';
+import FormInput from './FormInput';
+import * as Yup from 'yup';
+
 
 const SignUpForm = () => {
 

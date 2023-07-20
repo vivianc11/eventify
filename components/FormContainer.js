@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const FormContainer = ({ children }) => {
+
   return (
     <KeyboardAwareScrollView style={styles.container}>
       {children}
