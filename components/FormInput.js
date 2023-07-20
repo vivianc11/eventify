@@ -3,13 +3,15 @@ import { View, Text, StyleSheet, TextInput } from 'react-native';
 
 const FormInput = (props) => {
 
-    const { placeholder, label } = props;
+    const { placeholder, label, error } = props;
   return (
     <View>
       <View style={styles.labelContainer}>
         <Text style={styles.emailLabel}>{label}</Text>
+        {error ? <Text style={styles.errorMessage}>{error}</Text> : null}
       </View>
       <TextInput
+        {...props}
         style={styles.emailInput} 
         placeholder={placeholder}
       />
@@ -25,6 +27,10 @@ const styles = StyleSheet.create({
       },
       emailLabel: {
         fontWeight: 'bold'
+      },
+      errorMessage: {
+        color: 'red',
+        fontSize: 16
       },
       emailInput: {
         borderWidth: 1,
