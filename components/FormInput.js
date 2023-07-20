@@ -7,12 +7,12 @@ const FormInput = (props) => {
   return (
     <View>
       <View style={styles.labelContainer}>
-        <Text style={styles.emailLabel}>{label}</Text>
+        <Text style={styles.label}>{label}</Text>
         {error ? <Text style={styles.errorMessage}>{error}</Text> : null}
       </View>
       <TextInput
         {...props}
-        style={styles.emailInput} 
+        style={styles.input} 
         placeholder={placeholder}
       />
     </View>
@@ -25,14 +25,14 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         flexWrap: 'wrap'
       },
-      emailLabel: {
+      label: {
         fontWeight: 'bold'
       },
       errorMessage: {
         color: 'red',
         fontSize: 16
       },
-      emailInput: {
+      input: {
         borderWidth: 1,
         borderColor: '#F4A261',
         height: 35,
