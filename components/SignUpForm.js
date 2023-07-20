@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import FormContainer from './FormContainer';
 import { Formik } from 'formik';
 import FormSubmitButton from './FormSubmitButton';
@@ -32,7 +32,7 @@ const SignUpForm = () => {
         validationSchema={validationSchema}
         onSubmit=''
       >
-        {({ values, errors, touched }) => {
+        {({ values, errors, touched, isSubmitting, handleChange, handleBlur, handleSubmit }) => {
 
           const { fullName, username, email, password, confirmPassword } = values;
 
@@ -40,21 +40,41 @@ const SignUpForm = () => {
             <FormInput 
               value={fullName}
               label='Full Name'
+              error={touched.fullName && errors.fullName}
+              onChangeText={handleChange('fullName')}
+              onBlur={handleBlur('fullName')}
               placeholder='John Doe'
+            />
+            <FormInput 
+              value={username}
+              label='Username'
+              error={touched.username && errors.username}
+              onChangeText={handleChange('username')}
+              onBlur={handleBlur('username')}
+              placeholder='Bigolas Dickolas'
             />
             <FormInput 
               value={email}
               label='Email'
+              error={touched.email && errors.email}
+              onChangeText={handleChange('email')}
+              onBlur={handleBlur('email')}
               placeholder='example@email.com'
             />
             <FormInput 
               value={password}
               label='Password'
+              error={touched.password && errors.password}
+              onChangeText={handleChange('password')}
+              onBlur={handleBlur('password')}
               placeholder='********'
             />
             <FormInput 
               value={confirmPassword}
               label='Confirm Password'
+              error={touched.confirmPassword && errors.confirmPassword}
+              onChangeText={handleChange('confirmPassword')}
+              onBlur={handleBlur('confirmPassword')}
               placeholder='********'
             />
             <FormSubmitButton title='Sign Up' />
