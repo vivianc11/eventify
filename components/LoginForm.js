@@ -23,9 +23,15 @@ const LoginForm = () => {
       <Formik
         initialValues={userInfo}
         validationSchema={validationSchema}
-        onSubmit=''
+        onSubmit={(values, formikActions) => {
+          setTimeout(() => {
+            console.log(values)
+            formikActions.resetForm();
+            formikActions.setSubmitting(false)
+          }, 2000)
+        }}
       >
-        {({ values, errors, touched}) => {
+        {({ values, errors, touched, isSubmitting, handleChange, handleBlur, handleSubmit }) => {
 
           const { username, password } = values;
 
@@ -33,16 +39,24 @@ const LoginForm = () => {
             <FormInput 
               value={username}
               label='Username'
+              error={touched.username && errors.username}
+              onChangeText={handleChange('username')}
+              onBlur={handleBlur('username')}
               placeholder='Bigolas Dickolas'
             />
             <FormInput 
               value={password}
               label='Password'
+              error={touched.password && errors.password}
+              onChangeText={handleChange('password')}
+              onBlur={handleBlur('password')}
               placeholder='********'
               autoCapitalize='none'
               secureTextEntry
             />
             <FormSubmitButton 
+              submitting={isSubmitting}
+              onPress={handleSubmit}
               title='Login'
             />
           </>
