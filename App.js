@@ -5,6 +5,8 @@ import LoginSelectorButton from './components/LoginSelectorButton';
 import LoginForm from './components/LoginForm';
 import SignUpForm from './components/SignUpForm';
 import React, { useEffect, useRef } from 'react';
+import axios from 'axios';
+import { API_URL } from '@env';
 
 const { width } = Dimensions.get('window');
 
@@ -12,6 +14,19 @@ export default function App() {
 
   const animation = useRef(new Animated.Value(0)).current;
   const scrollView = useRef();
+
+  const fetchApi = async () => {
+    try {
+      const res = await axios.get(API_URL);
+      console.log(res.data)
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  useEffect(() => {
+    fetchApi(API_URL)
+  }, [])
 
   const rightHeaderOpacity = animation.interpolate({
     inputRange: [0, width],
