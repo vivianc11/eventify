@@ -13,6 +13,27 @@ export default function App() {
   const animation = useRef(new Animated.Value(0)).current;
   const scrollView = useRef();
 
+  const rightHeaderOpacity = animation.interpolate({
+    inputRange: [0, width],
+    // the 1 is the opacity we want the 'back' when we are in the login page
+    // the 0 is the opacity we want the 'back' when we are in the signup page
+    outputRange: [1, 0]
+  })
+
+  const leftHeaderTranslateX = animation.interpolate({
+    inputRange: [0, width],
+    // the 0 is the position we want the 'welcome' when we are in the login page
+    // the 40 is the position we want the 'welcome' when we are in the signup page
+    outputRange: [0, 40]
+  })
+
+  const rightHeaderTranslateY = animation.interpolate({
+    inputRange: [0, width],
+    // the 0 is the position we want the 'back' when we are in the login page
+    // the -20 is the position we want the 'back' when we are in the signup page
+    outputRange: [0, -20]
+  })
+
   const loginColorInterpolate = animation.interpolate({
     inputRange: [0, width],
     outputRange: ['rgba(231, 111, 81, 1)','rgba(231, 111, 81, 0.4)']
@@ -30,6 +51,9 @@ export default function App() {
           leftHeading='Welcome '
           rightHeading='Back'
           subHeading='Start Event Planning Now'
+          rightHeaderOpacity={rightHeaderOpacity}
+          leftHeaderTranslateX={leftHeaderTranslateX}
+          rightHeaderTranslateY={rightHeaderTranslateY}
         />
       </View>
       <View style={styles.buttonContainer}>

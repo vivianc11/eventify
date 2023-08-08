@@ -1,14 +1,16 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Animated } from 'react-native';
 
-const LoginHeader = ({ leftHeading, rightHeading, subHeading }) => {
+const LoginHeader = ({ leftHeading, rightHeading, subHeading, leftHeaderTranslateX, rightHeaderTranslateY, rightHeaderOpacity }) => {
   return (
     <>
       <View style={styles.textBox}>
-        <Text style={styles.headerText}>
+        <Animated.Text style={[styles.headerText, {transform: [{translateX: leftHeaderTranslateX}]}]}>
           {leftHeading}
-        </Text>
-        <Text style={styles.headerText}>{rightHeading}</Text>
+        </Animated.Text>
+        <Animated.Text style={[styles.headerText, {opacity: rightHeaderOpacity, transform: [{translateY: rightHeaderTranslateY}]}]}>
+          {rightHeading}
+        </Animated.Text>
       </View>
       <Text style={styles.subHeading}>{subHeading}</Text>
     </>
