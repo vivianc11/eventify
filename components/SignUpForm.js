@@ -6,11 +6,13 @@ import FormSubmitButton from './FormSubmitButton';
 import FormInput from './FormInput';
 import * as Yup from 'yup';
 
+import client from '../api/client';
+
 
 const SignUpForm = () => {
 
   const userInfo = {
-    fullName: '',
+    fullname: '',
     username: '',
     email: '',
     password: '',
@@ -18,37 +20,38 @@ const SignUpForm = () => {
   }
 
   const validationSchema = Yup.object({
-    fullName: Yup.string().trim().matches(/^[A-Z][a-z]+\s[a-zA-Z\s\.]+/, 'Invalid full name').required('Name is required'),
+    fullname: Yup.string().trim().matches(/^[A-Z][a-z]+\s[a-zA-Z\s\.]+/, 'Invalid full name').required('Name is required'),
     username: Yup.string().trim().min(3, 'Username must have at least 3 characters').required('Username is required'),
     email: Yup.string().email('Invalid email').required('Email is required'),
     password: Yup.string().trim().min(8, 'Password must be at least 8 characters').required('Password is required'),
     confirmPassword: Yup.string().equals([Yup.ref('password'), null], 'Passwords do not match')
   })
 
+  const signUp = async (values, formikActions) => {
+      const res = await client.post('/create-user', { ...values });
+      console.log(res);
+      formikActions.resetForm();
+      formikActions.setSubmitting(false)
+    };
+
   return (
     <FormContainer>
       <Formik
         initialValues={userInfo}
         validationSchema={validationSchema}
-        onSubmit={(values, formikActions) => {
-          setTimeout(() => {
-            console.log(values)
-            formikActions.resetForm()
-            formikActions.setSubmitting(false)
-          }, 2000);
-        }}
+        onSubmit={signUp}
       >
         {({ values, errors, touched, isSubmitting, handleChange, handleBlur, handleSubmit }) => {
 
-          const { fullName, username, email, password, confirmPassword } = values;
+          const { fullname, username, email, password, confirmPassword } = values;
 
           return <>
             <FormInput 
-              value={fullName}
+              value={fullname}
               label='Full Name'
-              error={touched.fullName && errors.fullName}
-              onChangeText={handleChange('fullName')}
-              onBlur={handleBlur('fullName')}
+              error={touched.fullname && errors.fullname}
+              onChangeText={handleChange('fullname')}
+              onBlur={handleBlur('fullname')}
               placeholder='John Doe'
             />
             <FormInput 
