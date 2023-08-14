@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Image, StyleSheet, TouchableOpacity, Text } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
+import client from "../api/client";
 
 const ImageUpload = () => {
 
@@ -15,16 +16,23 @@ const ImageUpload = () => {
       quality: 1,
     });
 
-    console.log(result);
-
     if (!result.canceled) {
       setProfileImage(result.assets[0].uri);
     }
   }
 
+  const uploadProfileImage = async () => {
+    console.log(profileImage)
+    // const res = await client.post('/upload-profile', { ...values });
+
+  }
+
   return (
     <View style={styles.container}>
       <View>
+      {profileImage ? (
+          <Text onPress={pickImage} style={[styles.skipText, styles.different]}>Upload a Different Image</Text>
+        ): null}
         <TouchableOpacity onPress={pickImage} style={styles.uploadButtonContainer}>
           {profileImage && <Image source={{ uri: profileImage }} style={{ width: 200, height: 200, borderRadius: 100 }} />}
           {profileImage ? null: (
@@ -33,7 +41,7 @@ const ImageUpload = () => {
         </TouchableOpacity>
         <Text style={styles.skipText}>Skip</Text>
         {profileImage ? (
-          <Text onPress={pickImage} style={styles.uploadText}>Upload</Text>
+          <Text onPress={uploadProfileImage} style={styles.uploadText}>Upload</Text>
         ): null}
       </View>
     </View>
@@ -77,6 +85,10 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     borderRadius: 8,
     overflow: 'hidden'
+  },
+  different: {
+    marginTop: 0,
+    color: '#E76F51'
   }
 })
 
