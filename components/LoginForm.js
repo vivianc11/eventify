@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import FormContainer from './FormContainer';
@@ -10,21 +10,23 @@ import client from '../api/client';
 const LoginForm = () => {
 
   const userInfo = {
-    username: '',
+    email: '',
     password: '',
   }
 
   const validationSchema = Yup.object({
-    username: Yup.string().trim().min(3, 'Username must have at least 3 characters').required('Username is required'),
+    email: Yup.string().email('Invalid email').required('Email is required'),
     password: Yup.string().trim().min(8, 'Password must be at least 8 characters').required('Password is required'),
   })
 
   const login = async (values, formikActions) => {
     const res = await client.post('/sign-in', { ...values });
-    console.log(res);
-    formikActions.resetForm();
-    formikActions.setSubmitting(false)
-
+    console.log(res.data);
+    
+    if(res.data.success){
+      formikActions.resetForm();
+      formikActions.setSubmitting(false)
+    }
   }
 
   return (
@@ -36,16 +38,17 @@ const LoginForm = () => {
       >
         {({ values, errors, touched, isSubmitting, handleChange, handleBlur, handleSubmit }) => {
 
-          const { username, password } = values;
+          const { email, password } = values;
 
           return <>
             <FormInput
-              value={username}
-              label='Username'
-              error={touched.username && errors.username}
-              onChangeText={handleChange('username')}
-              onBlur={handleBlur('username')}
-              placeholder='Bigolas Dickolas'
+              value={email}
+              label='Email'
+              error={touched.email && errors.email}
+              onChangeText={handleChange('email')}
+              onBlur={handleBlur('email')}
+              autoCapitalize='none'
+              placeholder='bigolas@email.com'
             />
             <FormInput
               value={password}
