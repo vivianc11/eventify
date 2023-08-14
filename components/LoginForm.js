@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import FormContainer from './FormContainer';
 import FormInput from './FormInput';
 import FormSubmitButton from './FormSubmitButton';
+import client from '../api/client';
 
 const LoginForm = () => {
 
@@ -18,25 +19,27 @@ const LoginForm = () => {
     password: Yup.string().trim().min(8, 'Password must be at least 8 characters').required('Password is required'),
   })
 
+  const login = async (values, formikActions) => {
+    const res = await client.post('/sign-in', { ...values });
+    console.log(res);
+    formikActions.resetForm();
+    formikActions.setSubmitting(false)
+
+  }
+
   return (
     <FormContainer>
       <Formik
         initialValues={userInfo}
         validationSchema={validationSchema}
-        onSubmit={(values, formikActions) => {
-          setTimeout(() => {
-            console.log(values)
-            formikActions.resetForm();
-            formikActions.setSubmitting(false)
-          }, 2000)
-        }}
+        onSubmit={login}
       >
         {({ values, errors, touched, isSubmitting, handleChange, handleBlur, handleSubmit }) => {
 
           const { username, password } = values;
 
           return <>
-            <FormInput 
+            <FormInput
               value={username}
               label='Username'
               error={touched.username && errors.username}
@@ -44,7 +47,7 @@ const LoginForm = () => {
               onBlur={handleBlur('username')}
               placeholder='Bigolas Dickolas'
             />
-            <FormInput 
+            <FormInput
               value={password}
               label='Password'
               error={touched.password && errors.password}
@@ -54,7 +57,7 @@ const LoginForm = () => {
               autoCapitalize='none'
               secureTextEntry
             />
-            <FormSubmitButton 
+            <FormSubmitButton
               submitting={isSubmitting}
               onPress={handleSubmit}
               title='Login'
