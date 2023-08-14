@@ -7,6 +7,7 @@ import SignUpForm from './components/SignUpForm';
 import React, { useEffect, useRef } from 'react';
 import axios from 'axios';
 import { API_URL } from '@env';
+import ImageUpload from './components/ImageUpload';
 
 const { width } = Dimensions.get('window');
 
@@ -59,47 +60,51 @@ export default function App() {
     outputRange: ['rgba(231, 111, 81, 0.4)','rgba(231, 111, 81, 1)']
   })
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <LoginHeader
-          leftHeading='Welcome '
-          rightHeading='Back'
-          subHeading='Start Event Planning Now'
-          rightHeaderOpacity={rightHeaderOpacity}
-          leftHeaderTranslateX={leftHeaderTranslateX}
-          rightHeaderTranslateY={rightHeaderTranslateY}
-        />
-      </View>
-      <View style={styles.buttonContainer}>
-        <LoginSelectorButton
-          style={styles.borderLeft}
-          backgroundColor={loginColorInterpolate}
-          title='Login'
-          onPress={() => scrollView.current.scrollTo({ x:0 })}
-        />
-        <LoginSelectorButton
-          style={styles.borderRight}
-          backgroundColor={signUpColorInterpolate}
-          title='Sign Up'
-          onPress={() => scrollView.current.scrollTo({ x:width })}
-        />
-      </View>
-      <ScrollView
-        ref={scrollView} 
-        horizontal 
-        pagingEnabled 
-        showsHorizontalScrollIndicator={false}
-        scrollEventThrottle={16}
-        onScroll={Animated.event([{nativeEvent: {contentOffset: {x:animation}}}], {useNativeDriver: false})}
-      >
-        <LoginForm />
-        <ScrollView>
-          <SignUpForm />
-        </ScrollView>
-      </ScrollView>
-    </View>
-  );
+  // return (
+  //   <View style={styles.container}>
+  //     <View style={styles.header}>
+  //       <LoginHeader
+  //         leftHeading='Welcome '
+  //         rightHeading='Back'
+  //         subHeading='Start Event Planning Now'
+  //         rightHeaderOpacity={rightHeaderOpacity}
+  //         leftHeaderTranslateX={leftHeaderTranslateX}
+  //         rightHeaderTranslateY={rightHeaderTranslateY}
+  //       />
+  //     </View>
+  //     <View style={styles.buttonContainer}>
+  //       <LoginSelectorButton
+  //         style={styles.borderLeft}
+  //         backgroundColor={loginColorInterpolate}
+  //         title='Login'
+  //         onPress={() => scrollView.current.scrollTo({ x:0 })}
+  //       />
+  //       <LoginSelectorButton
+  //         style={styles.borderRight}
+  //         backgroundColor={signUpColorInterpolate}
+  //         title='Sign Up'
+  //         onPress={() => scrollView.current.scrollTo({ x:width })}
+  //       />
+  //     </View>
+  //     <ScrollView
+  //       ref={scrollView} 
+  //       horizontal 
+  //       pagingEnabled 
+  //       showsHorizontalScrollIndicator={false}
+  //       scrollEventThrottle={16}
+  //       onScroll={Animated.event([{nativeEvent: {contentOffset: {x:animation}}}], {useNativeDriver: false})}
+  //     >
+  //       <LoginForm />
+  //       <ScrollView>
+  //         <SignUpForm />
+  //       </ScrollView>
+  //     </ScrollView>
+  //   </View>
+  // );
+
+  return(
+    <ImageUpload/>
+  )
 }
 
 const styles = StyleSheet.create({
