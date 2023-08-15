@@ -5,11 +5,12 @@ import { Formik } from 'formik';
 import FormSubmitButton from './FormSubmitButton';
 import FormInput from './FormInput';
 import * as Yup from 'yup';
+import { StackActions } from '@react-navigation/native'
 
 import client from '../api/client';
 
 
-const SignUpForm = () => {
+const SignUpForm = ({ navigation }) => {
 
   const userInfo = {
     fullname: '',
@@ -30,8 +31,20 @@ const SignUpForm = () => {
   const signUp = async (values, formikActions) => {
       const res = await client.post('/create-user', { ...values });
       console.log(res);
-      formikActions.resetForm();
-      formikActions.setSubmitting(false)
+
+      if(res.data.success){
+        formikActions.resetForm();
+        formikActions.setSubmitting(false);
+        const signInRes = await client.post('/sign-in', {email: values.email, password: values.password})
+
+        if(signInRes.data.success){
+          navigation.dispatch(
+            StackActions.replace('ImageUpload', {
+              token: signInRes.data.jwtToken,
+            })
+          );
+        }
+      }
     };
 
   return (

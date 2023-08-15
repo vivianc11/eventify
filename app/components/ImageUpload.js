@@ -3,10 +3,11 @@ import { View, Image, StyleSheet, TouchableOpacity, Text } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
 import client from "../api/client";
 
-const ImageUpload = () => {
+const ImageUpload = (props) => {
 
   const [profileImage, setProfileImage] = useState(null);
   // const [uploadProgress, setUploadProgress] = useState(0);
+  const { jwtToken } = props.route.params;
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the profileImage library
@@ -36,11 +37,18 @@ const ImageUpload = () => {
           Accept: 'application/json',
           'Content-Type': 'multipart/form-data',
           // Need authorization because in backend, it requires auth to upload any profile pics
-          Authorization: 'JWT need to pass token here!!'
+          Authorization: `JWT ${jwtToken}`,
         },
         // onUploadProgress: ({ loaded, total }) => setUploadProgress(loaded/total)
       });
       console.log(res.data)
+      if(res.data.success){
+        navigation.dispatch(
+          StackActions.replace('UserProfile', {
+            
+          })
+        );
+      }
     } catch (error) {
       console.log(error.message)
     }

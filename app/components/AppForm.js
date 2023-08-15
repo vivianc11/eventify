@@ -11,7 +11,7 @@ import ImageUpload from './ImageUpload';
 
 const { width } = Dimensions.get('window');
 
-export default function AppForm() {
+export default function AppForm({ navigation }) {
 
   const animation = useRef(new Animated.Value(0)).current;
   const scrollView = useRef();
@@ -94,9 +94,9 @@ export default function AppForm() {
         scrollEventThrottle={16}
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: animation } } }], { useNativeDriver: false })}
       >
-        <LoginForm />
+        <LoginForm navigation={navigation} />
         <ScrollView>
-          <SignUpForm />
+          <SignUpForm navigation={navigation} />
         </ScrollView>
       </ScrollView>
     </View>
