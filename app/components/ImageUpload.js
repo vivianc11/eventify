@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Image, StyleSheet, TouchableOpacity, Text } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
 import client from "../api/client";
+import { StackActions } from '@react-navigation/native'
 
 const ImageUpload = (props) => {
 
@@ -43,10 +44,8 @@ const ImageUpload = (props) => {
       });
       console.log(res.data)
       if(res.data.success){
-        navigation.dispatch(
-          StackActions.replace('UserProfile', {
-            
-          })
+        props.navigation.dispatch(
+          StackActions.replace('UserProfile')
         );
       }
     } catch (error) {
