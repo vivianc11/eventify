@@ -6,6 +6,7 @@ import client from "../api/client";
 const ImageUpload = () => {
 
   const [profileImage, setProfileImage] = useState(null);
+  // const [uploadProgress, setUploadProgress] = useState(0);
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the profileImage library
@@ -22,27 +23,48 @@ const ImageUpload = () => {
   }
 
   const uploadProfileImage = async () => {
-    console.log(profileImage)
-    // const res = await client.post('/upload-profile', { ...values });
+    // need to clean up data using FormData
+    const formData = new FormData();
+    formData.append('profile', {
+      name: new Date() + '_profile',
+      uri: profileImage,
+      type: 'image/jpg/png'
+    })
+    try {
+      const res = await client.post('/upload-profile', formData, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data',
+          // Need authorization because in backend, it requires auth to upload any profile pics
+          Authorization: 'JWT need to pass token here!!'
+        },
+        // onUploadProgress: ({ loaded, total }) => setUploadProgress(loaded/total)
+      });
+      console.log(res.data)
+    } catch (error) {
+      console.log(error.message)
+    }
+
 
   }
 
   return (
     <View style={styles.container}>
       <View>
-      {profileImage ? (
+        {profileImage ? (
           <Text onPress={pickImage} style={[styles.skipText, styles.different]}>Upload a Different Image</Text>
-        ): null}
+        ) : null}
         <TouchableOpacity onPress={pickImage} style={styles.uploadButtonContainer}>
           {profileImage && <Image source={{ uri: profileImage }} style={{ width: 200, height: 200, borderRadius: 100 }} />}
-          {profileImage ? null: (
+          {profileImage ? null : (
             <Text style={styles.uploadButton}>Upload Profile Pic</Text>
           )}
         </TouchableOpacity>
+        {/* {progress ? <Text>{progess}</Text> : null} */}
         <Text style={styles.skipText}>Skip</Text>
         {profileImage ? (
           <Text onPress={uploadProfileImage} style={styles.uploadText}>Upload</Text>
-        ): null}
+        ) : null}
       </View>
     </View>
   )
