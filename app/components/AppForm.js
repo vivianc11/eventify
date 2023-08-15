@@ -1,13 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { ScrollView, StyleSheet, View, Animated, Dimensions } from 'react-native';
-import LoginHeader from './components/LoginHeader';
-import LoginSelectorButton from './components/LoginSelectorButton';
-import LoginForm from './components/LoginForm';
-import SignUpForm from './components/SignUpForm';
+import LoginHeader from './LoginHeader';
+import LoginSelectorButton from './LoginSelectorButton';
+import LoginForm from './LoginForm';
+import SignUpForm from './SignUpForm';
 import React, { useEffect, useRef } from 'react';
 import axios from 'axios';
 import { API_URL } from '@env';
-import ImageUpload from './components/ImageUpload';
+import ImageUpload from './ImageUpload';
 
 const { width } = Dimensions.get('window');
 
