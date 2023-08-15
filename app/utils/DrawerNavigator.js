@@ -2,6 +2,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
+import Home from '../components/Home';
+import UserProfile from '../components/UserProfile';
+
 const Drawer = createDrawerNavigator();
 
 
