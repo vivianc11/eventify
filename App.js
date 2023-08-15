@@ -1,9 +1,11 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import AppForm from './app/components/AppForm';
 import ImageUpload from './app/components/ImageUpload';
 import UserProfile from './app/components/UserProfile';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Stack = createStackNavigator();
 
@@ -16,6 +18,8 @@ const StackNavigator = () => {
     </Stack.Navigator>
   )
 }
+
+const Drawer = 
 
 export default function App() {
   return (
