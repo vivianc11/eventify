@@ -6,8 +6,10 @@ import FormContainer from './FormContainer';
 import FormInput from './FormInput';
 import FormSubmitButton from './FormSubmitButton';
 import client from '../api/client';
+import { useLogin } from '../context/LoginProvider';
 
 const LoginForm = () => {
+  const { setIsLoggedIn } = useLogin();
 
   const userInfo = {
     email: '',
@@ -21,11 +23,12 @@ const LoginForm = () => {
 
   const login = async (values, formikActions) => {
     const res = await client.post('/sign-in', { ...values });
-    console.log(res.data);
-    
-    if(res.data.success){
+    // console.log(res.data);
+
+    if (res.data.success) {
       formikActions.resetForm();
       formikActions.setSubmitting(false)
+      setIsLoggedIn(true);
     }
   }
 

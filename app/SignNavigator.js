@@ -5,6 +5,8 @@ import ImageUpload from './components/ImageUpload';
 import UserProfile from './components/UserProfile';
 import { createStackNavigator } from '@react-navigation/stack';
 import DrawerNavigator from './DrawerNavigator';
+import { useLogin } from './context/LoginProvider';
+
 
 const Stack = createStackNavigator();
 
