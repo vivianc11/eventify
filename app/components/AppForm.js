@@ -8,6 +8,7 @@ import React, { useEffect, useRef } from 'react';
 import axios from 'axios';
 import { API_URL } from '@env';
 import ImageUpload from './ImageUpload';
+import AppLoader from './AppLoader';
 
 const { width } = Dimensions.get('window');
 
@@ -61,45 +62,48 @@ export default function AppForm({ navigation }) {
   })
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <LoginHeader
-          leftHeading='Welcome '
-          rightHeading='Back'
-          subHeading='Start Event Planning Now'
-          rightHeaderOpacity={rightHeaderOpacity}
-          leftHeaderTranslateX={leftHeaderTranslateX}
-          rightHeaderTranslateY={rightHeaderTranslateY}
-        />
-      </View>
-      <View style={styles.buttonContainer}>
-        <LoginSelectorButton
-          style={styles.borderLeft}
-          backgroundColor={loginColorInterpolate}
-          title='Login'
-          onPress={() => scrollView.current.scrollTo({ x: 0 })}
-        />
-        <LoginSelectorButton
-          style={styles.borderRight}
-          backgroundColor={signUpColorInterpolate}
-          title='Sign Up'
-          onPress={() => scrollView.current.scrollTo({ x: width })}
-        />
-      </View>
-      <ScrollView
-        ref={scrollView}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        scrollEventThrottle={16}
-        onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: animation } } }], { useNativeDriver: false })}
-      >
-        <LoginForm navigation={navigation} />
-        <ScrollView>
-          <SignUpForm navigation={navigation} />
+    <>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <LoginHeader
+            leftHeading='Welcome '
+            rightHeading='Back'
+            subHeading='Start Event Planning Now'
+            rightHeaderOpacity={rightHeaderOpacity}
+            leftHeaderTranslateX={leftHeaderTranslateX}
+            rightHeaderTranslateY={rightHeaderTranslateY}
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <LoginSelectorButton
+            style={styles.borderLeft}
+            backgroundColor={loginColorInterpolate}
+            title='Login'
+            onPress={() => scrollView.current.scrollTo({ x: 0 })}
+          />
+          <LoginSelectorButton
+            style={styles.borderRight}
+            backgroundColor={signUpColorInterpolate}
+            title='Sign Up'
+            onPress={() => scrollView.current.scrollTo({ x: width })}
+          />
+        </View>
+        <ScrollView
+          ref={scrollView}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          scrollEventThrottle={16}
+          onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: animation } } }], { useNativeDriver: false })}
+        >
+          <LoginForm navigation={navigation} />
+          <ScrollView>
+            <SignUpForm navigation={navigation} />
+          </ScrollView>
         </ScrollView>
-      </ScrollView>
-    </View>
+      </View>
+      <AppLoader />
+    </>
   );
 
 }
