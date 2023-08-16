@@ -8,13 +8,16 @@ import UserProfile from './app/components/UserProfile';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DrawerNavigator from './app/DrawerNavigator';
 import SignNavigator from './app/SignNavigator';
+import LoginProvider from './app/context/LoginProvider';
 
 
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <SignNavigator />
-    </NavigationContainer>
+    <LoginProvider>
+      <NavigationContainer>
+        <SignNavigator />
+      </NavigationContainer>
+    </LoginProvider>
   )
 }
