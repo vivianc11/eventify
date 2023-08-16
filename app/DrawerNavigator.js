@@ -2,8 +2,8 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 
-import Home from '../components/Home';
-import UserProfile from '../components/UserProfile';
+import Home from './components/Home';
+import UserProfile from './components/UserProfile';
 
 const Drawer = createDrawerNavigator();
 

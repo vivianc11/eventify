@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import AppForm from '../components/AppForm';
-import ImageUpload from '../components/ImageUpload';
-import UserProfile from '../components/UserProfile';
+import AppForm from './components/AppForm';
+import ImageUpload from './components/ImageUpload';
+import UserProfile from './components/UserProfile';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
