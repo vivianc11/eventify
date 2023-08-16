@@ -3,12 +3,15 @@ import { View, Image, StyleSheet, TouchableOpacity, Text } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
 import client from "../api/client";
 import { StackActions } from '@react-navigation/native'
+import { useLogin } from "../context/LoginProvider";
+
 
 const ImageUpload = (props) => {
 
   const [profileImage, setProfileImage] = useState(null);
   // const [uploadProgress, setUploadProgress] = useState(0);
-  const { jwtToken } = props.route.params;
+  const { token } = props.route.params;
+  const { setLoginPending, setIsLoggedIn } = useLogin();
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the profileImage library
@@ -25,6 +28,8 @@ const ImageUpload = (props) => {
   }
 
   const uploadProfileImage = async () => {
+    setLoginPending(true);
+
     // need to clean up data using FormData
     const formData = new FormData();
     formData.append('profile', {
@@ -38,15 +43,17 @@ const ImageUpload = (props) => {
           Accept: 'application/json',
           'Content-Type': 'multipart/form-data',
           // Need authorization because in backend, it requires auth to upload any profile pics
-          Authorization: `JWT ${jwtToken}`,
+          Authorization: `JWT ${token}`,
         },
         // onUploadProgress: ({ loaded, total }) => setUploadProgress(loaded/total)
       });
       console.log(res.data)
       if(res.data.success){
-        props.navigation.dispatch(
-          StackActions.replace('UserProfile')
-        );
+        // props.navigation.dispatch(
+        //   StackActions.replace('UserProfile')
+        // );
+        setIsLoggedIn(true);
+        setLoginPending(false);
       }
     } catch (error) {
       console.log(error.message)

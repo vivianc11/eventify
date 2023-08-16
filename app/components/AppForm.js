@@ -9,6 +9,7 @@ import axios from 'axios';
 import { API_URL } from '@env';
 import ImageUpload from './ImageUpload';
 import AppLoader from './AppLoader';
+import { useLogin } from '../context/LoginProvider';
 
 const { width } = Dimensions.get('window');
 
@@ -16,6 +17,7 @@ export default function AppForm({ navigation }) {
 
   const animation = useRef(new Animated.Value(0)).current;
   const scrollView = useRef();
+  const { loginPending } = useLogin();
 
   const fetchApi = async () => {
     try {
@@ -102,7 +104,7 @@ export default function AppForm({ navigation }) {
           </ScrollView>
         </ScrollView>
       </View>
-      <AppLoader />
+      {loginPending ? <AppLoader/> : null}
     </>
   );
 

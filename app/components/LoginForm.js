@@ -9,7 +9,7 @@ import client from '../api/client';
 import { useLogin } from '../context/LoginProvider';
 
 const LoginForm = () => {
-  const { setIsLoggedIn, setProfile } = useLogin();
+  const { setIsLoggedIn, setProfile, setLoginPending } = useLogin();
 
   const userInfo = {
     email: '',
@@ -22,6 +22,7 @@ const LoginForm = () => {
   })
 
   const login = async (values, formikActions) => {
+    setLoginPending(true);
     const res = await client.post('/sign-in', { ...values });
     // console.log(res.data);
 
@@ -30,6 +31,7 @@ const LoginForm = () => {
       formikActions.setSubmitting(false);
       setProfile(res.data.user)
       setIsLoggedIn(true);
+      setLoginPending(false);
     }
   }
 

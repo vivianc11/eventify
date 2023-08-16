@@ -8,9 +8,12 @@ import * as Yup from 'yup';
 import { StackActions } from '@react-navigation/native'
 
 import client from '../api/client';
+import { useLogin } from '../context/LoginProvider';
 
 
 const SignUpForm = ({ navigation }) => {
+
+  const { setLoginPending } = useLogin();
 
   const userInfo = {
     fullname: '',
@@ -29,23 +32,25 @@ const SignUpForm = ({ navigation }) => {
   })
 
   const signUp = async (values, formikActions) => {
-      const res = await client.post('/create-user', { ...values });
-      console.log(res);
+    setLoginPending(true);
+    const res = await client.post('/create-user', { ...values });
+    // console.log(res);
 
-      if(res.data.success){
-        formikActions.resetForm();
-        formikActions.setSubmitting(false);
-        const signInRes = await client.post('/sign-in', {email: values.email, password: values.password})
-
-        if(signInRes.data.success){
-          navigation.dispatch(
-            StackActions.replace('ImageUpload', {
-              token: signInRes.data.jwtToken,
-            })
-          );
-        }
+    if (res.data.success) {
+      const signInRes = await client.post('/sign-in', { email: values.email, password: values.password })
+      console.log(signInRes.data);
+      if (signInRes.data.success) {
+        navigation.dispatch(
+          StackActions.replace('ImageUpload', {
+            token: signInRes.data.jwtToken,
+          })
+        );
       }
-    };
+      formikActions.resetForm();
+      formikActions.setSubmitting(false);
+      setLoginPending(false);
+    }
+  };
 
   return (
     <FormContainer>
@@ -59,7 +64,7 @@ const SignUpForm = ({ navigation }) => {
           const { fullname, username, email, password, confirmPassword } = values;
 
           return <>
-            <FormInput 
+            <FormInput
               value={fullname}
               label='Full Name'
               error={touched.fullname && errors.fullname}
@@ -67,7 +72,7 @@ const SignUpForm = ({ navigation }) => {
               onBlur={handleBlur('fullname')}
               placeholder='John Doe'
             />
-            <FormInput 
+            <FormInput
               value={username}
               label='Username'
               error={touched.username && errors.username}
@@ -75,15 +80,16 @@ const SignUpForm = ({ navigation }) => {
               onBlur={handleBlur('username')}
               placeholder='Bigolas Dickolas'
             />
-            <FormInput 
+            <FormInput
               value={email}
               label='Email'
               error={touched.email && errors.email}
               onChangeText={handleChange('email')}
               onBlur={handleBlur('email')}
               placeholder='example@email.com'
+              autoCapitalize='none'
             />
-            <FormInput 
+            <FormInput
               value={password}
               label='Password'
               error={touched.password && errors.password}
@@ -91,7 +97,7 @@ const SignUpForm = ({ navigation }) => {
               onBlur={handleBlur('password')}
               placeholder='********'
             />
-            <FormInput 
+            <FormInput
               value={confirmPassword}
               label='Confirm Password'
               error={touched.confirmPassword && errors.confirmPassword}
@@ -99,10 +105,10 @@ const SignUpForm = ({ navigation }) => {
               onBlur={handleBlur('confirmPassword')}
               placeholder='********'
             />
-            <FormSubmitButton 
-              submitting={isSubmitting} 
-              onPress={handleSubmit} 
-              title='Sign Up' 
+            <FormSubmitButton
+              submitting={isSubmitting}
+              onPress={handleSubmit}
+              title='Sign Up'
             />
           </>
         }}
