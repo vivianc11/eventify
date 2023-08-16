@@ -9,7 +9,7 @@ import client from '../api/client';
 import { useLogin } from '../context/LoginProvider';
 
 const LoginForm = () => {
-  const { setIsLoggedIn } = useLogin();
+  const { setIsLoggedIn, setProfile } = useLogin();
 
   const userInfo = {
     email: '',
@@ -27,7 +27,8 @@ const LoginForm = () => {
 
     if (res.data.success) {
       formikActions.resetForm();
-      formikActions.setSubmitting(false)
+      formikActions.setSubmitting(false);
+      setProfile(res.data.user)
       setIsLoggedIn(true);
     }
   }

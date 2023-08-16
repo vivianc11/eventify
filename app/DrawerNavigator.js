@@ -4,26 +4,30 @@ import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '
 
 import Home from './components/Home';
 import UserProfile from './components/UserProfile';
+import { useLogin } from './context/LoginProvider';
 
 const Drawer = createDrawerNavigator();
 
 const CustomDrawer = (props) => {
+
+  const { setIsLoggedIn, profile } = useLogin();
+
   return (
     <View style={styles.drawerContentContainer}>
       <DrawerContentScrollView {...props}>
         <View style={styles.drawerHeaderContainer}>
           <View style={styles.drawerHeader}>
-            <Text style={styles.fullNameText}>Full Name</Text>
-            <Text style={styles.usernameText}>Username</Text>
+            <Text style={styles.fullNameText}>{profile.fullname}</Text>
+            <Text style={styles.usernameText}>{profile.username}</Text>
           </View>
           <Image
-            source={{ uri: 'https://res.cloudinary.com/dutf462zc/image/upload/v1692120598/64d55e9bcdf66d02d47ff28e_profile.jpg' }}
+            source={{ uri: profile.profilePic }}
             style={styles.profileImage}
           />
         </View>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
-      <TouchableOpacity style={styles.logout}>
+      <TouchableOpacity style={styles.logout} onPress={() => setIsLoggedIn(false)}>
         <Text>Log Out</Text>
       </TouchableOpacity>
       <Text style={styles.footer}>
