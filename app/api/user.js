@@ -17,3 +17,25 @@ export const signIn = async (email, password) => {
     console.log('error inside sign-in method', error.message)
   }
 }
+
+export const logOut = async () => {
+  try {
+    const token = await AsyncStorage.getItem('token');
+    if(token !== null){
+      const res = await client.get('/logout', {
+        headers: {
+          Authorization: `JWT ${token}`
+        }
+      })
+
+      if(res.data.success){
+        await AsyncStorage.removeItem('token');
+        return true;
+      }
+    }
+    return false;
+  } catch (error) {
+    console.log('error inside logout method', error.message)
+    return false;
+  }
+}

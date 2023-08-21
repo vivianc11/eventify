@@ -5,12 +5,13 @@ import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '
 import Home from './components/Home';
 import UserProfile from './components/UserProfile';
 import { useLogin } from './context/LoginProvider';
+import { logOut } from './api/user';
 
 const Drawer = createDrawerNavigator();
 
 const CustomDrawer = (props) => {
 
-  const { setIsLoggedIn, profile } = useLogin();
+  const { setIsLoggedIn, profile, setLoginPending } = useLogin();
 
   return (
     <View style={styles.drawerContentContainer}>
@@ -27,7 +28,16 @@ const CustomDrawer = (props) => {
         </View>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
-      <TouchableOpacity style={styles.logout} onPress={() => setIsLoggedIn(false)}>
+      <TouchableOpacity 
+        style={styles.logout} 
+        onPress={async () => {
+          setLoginPending(true);
+          const isLoggedOut = await logOut();
+          if (isLoggedOut){
+            setIsLoggedIn(false);
+          }
+          setLoginPending(false);
+        }}>
         <Text>Log Out</Text>
       </TouchableOpacity>
       <Text style={styles.footer}>
