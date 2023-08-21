@@ -9,6 +9,7 @@ import { StackActions } from '@react-navigation/native'
 
 import client from '../api/client';
 import { useLogin } from '../context/LoginProvider';
+import { signIn } from '../api/user';
 
 
 const SignUpForm = ({ navigation }) => {
@@ -37,7 +38,7 @@ const SignUpForm = ({ navigation }) => {
     // console.log(res);
 
     if (res.data.success) {
-      const signInRes = await client.post('/sign-in', { email: values.email, password: values.password })
+      const signInRes = await signIn();
       console.log(signInRes.data);
       if (signInRes.data.success) {
         navigation.dispatch(
