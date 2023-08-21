@@ -1,4 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import client from './client';
 
 export const signIn = async (email, password) => {
   try {
@@ -8,7 +9,7 @@ export const signIn = async (email, password) => {
     })
 
     if(signInRes.data.success){
-      const token = data.jwtToken;
+      const token = signInRes.data.jwtToken;
       await AsyncStorage.setItem('token', token);
       return signInRes;
     }

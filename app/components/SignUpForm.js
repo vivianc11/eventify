@@ -38,7 +38,7 @@ const SignUpForm = ({ navigation }) => {
     // console.log(res);
 
     if (res.data.success) {
-      const signInRes = await signIn();
+      const signInRes = await signIn(values.email, values.password);
       console.log(signInRes.data);
       if (signInRes.data.success) {
         navigation.dispatch(

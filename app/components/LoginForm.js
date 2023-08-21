@@ -7,6 +7,7 @@ import FormInput from './FormInput';
 import FormSubmitButton from './FormSubmitButton';
 import client from '../api/client';
 import { useLogin } from '../context/LoginProvider';
+import { signIn } from '../api/user';
 
 const LoginForm = () => {
   const { setIsLoggedIn, setProfile, setLoginPending } = useLogin();
@@ -23,15 +24,19 @@ const LoginForm = () => {
 
   const login = async (values, formikActions) => {
     setLoginPending(true);
-    const res = await client.post('/sign-in', { ...values });
-    // console.log(res.data);
+    try {
+      const res = await signIn(values.email, values.password);
+      // console.log(res.data);
 
-    if (res.data.success) {
-      formikActions.resetForm();
-      formikActions.setSubmitting(false);
-      setProfile(res.data.user)
-      setIsLoggedIn(true);
-      setLoginPending(false);
+      if (res.data.success) {
+        formikActions.resetForm();
+        formikActions.setSubmitting(false);
+        setProfile(res.data.user)
+        setIsLoggedIn(true);
+        setLoginPending(false);
+      }
+    } catch (error) {
+      console.log('error inside of login', error);
     }
   }
 
