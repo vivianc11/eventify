@@ -6,7 +6,7 @@ import UserProfile from './components/UserProfile';
 import { createStackNavigator } from '@react-navigation/stack';
 import DrawerNavigator from './DrawerNavigator';
 import { useLogin } from './context/LoginProvider';
-
+import AppLoader from './components/AppLoader';
 
 const Stack = createStackNavigator();
 
@@ -22,7 +22,12 @@ const StackNavigator = () => {
 
 export default function SignNavigator() {
   const { isLoggedIn } = useLogin();
-  return isLoggedIn ? <DrawerNavigator /> : <StackNavigator /> ;
+  return isLoggedIn ? 
+    <>
+    <DrawerNavigator /> 
+    {loginPending ? <AppLoader /> : null}
+    </>
+    : <StackNavigator /> ;
 }
 
 const styles = StyleSheet.create({})
