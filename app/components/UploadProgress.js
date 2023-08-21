@@ -6,9 +6,16 @@ import * as Progress from 'react-native-progress';
 export default function UploadProgress({ process }) {
   return (
     <View style={[StyleSheet.absoluteFillObject, styles.container]}>
-      <Progress.Circle
+      <Progress.Bar
+        style={styles.bar}
         progress={process}
-        width={200}
+        width={240}
+        height={10}
+        borderRadius={8}
+        showsText={true}
+        color='rgb(231, 111, 81)'
+        borderWidth={2}
+        indeterminate={true}
       />
     </View>
   )
@@ -21,4 +28,9 @@ const styles = StyleSheet.create({
       zIndex: 1,
       backgroundColor: 'rgba(142, 154, 175, 0.3)'
     },
+    bar: {
+      position: 'absolute',
+      top: 503,
+      left: 79,
+    }
 })
