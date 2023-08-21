@@ -42,7 +42,7 @@ const SignUpForm = ({ navigation }) => {
       if (signInRes.data.success) {
         navigation.dispatch(
           StackActions.replace('ImageUpload', {
-            token: signInRes.data.jwtToken,
+            data: signInRes.data,
           })
         );
       }

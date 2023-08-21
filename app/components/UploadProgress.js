@@ -15,7 +15,6 @@ export default function UploadProgress({ process }) {
         showsText={true}
         color='rgb(231, 111, 81)'
         borderWidth={2}
-        indeterminate={true}
       />
     </View>
   )

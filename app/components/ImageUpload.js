@@ -11,8 +11,8 @@ const ImageUpload = (props) => {
 
   const [profileImage, setProfileImage] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const { token } = props.route.params;
-  const { setLoginPending, setIsLoggedIn } = useLogin();
+  const { data } = props.route.params;
+  const { setIsLoggedIn, setProfile } = useLogin();
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the profileImage library
@@ -43,17 +43,19 @@ const ImageUpload = (props) => {
           Accept: 'application/json',
           'Content-Type': 'multipart/form-data',
           // Need authorization because in backend, it requires auth to upload any profile pics
-          Authorization: `JWT ${token}`,
+          Authorization: `JWT ${data.jwtToken}`,
         },
         onUploadProgress: ({ loaded, total }) => setUploadProgress(loaded / total)
       });
-      console.log(res.data)
+
+      console.log('user data:', data)
       if (res.data.success) {
+        console.log('picture:', res.data)
         // props.navigation.dispatch(
         //   StackActions.replace('UserProfile')
         // );
+        setProfile({ ...data.user, profilePic: res.data.profilePic})
         setIsLoggedIn(true);
-        setLoginPending(false);
       }
     } catch (error) {
       console.log(error.message)
