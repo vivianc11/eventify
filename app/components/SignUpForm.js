@@ -34,24 +34,26 @@ const SignUpForm = ({ navigation }) => {
 
   const signUp = async (values, formikActions) => {
     setLoginPending(true);
-    const res = await client.post('/create-user', { ...values });
-    // console.log(res);
-
-    if (res.data.success) {
-      const signInRes = await signIn(values.email, values.password);
-      console.log(signInRes.data);
-      if (signInRes.data.success) {
-        navigation.dispatch(
-          StackActions.replace('ImageUpload', {
-            data: signInRes.data,
-          })
-        );
+    setTimeout(async() => {
+      const res = await client.post('/create-user', { ...values });
+      // console.log(res);
+      if (res.data.success) {
+        const signInRes = await signIn(values.email, values.password);
+        console.log(signInRes.data);
+        if (signInRes.data.success) {
+          navigation.dispatch(
+            StackActions.replace('ImageUpload', {
+              data: signInRes.data,
+            })
+          );
+        }
       }
+    },2000)
+
       formikActions.resetForm();
       formikActions.setSubmitting(false);
       setLoginPending(false);
-    }
-  };
+    };
 
   return (
     <FormContainer>

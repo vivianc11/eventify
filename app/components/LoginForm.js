@@ -25,16 +25,18 @@ const LoginForm = () => {
   const login = async (values, formikActions) => {
     setLoginPending(true);
     try {
-      const res = await signIn(values.email, values.password);
-      // console.log(res.data);
-
-      if (res.data.success) {
-        formikActions.resetForm();
-        formikActions.setSubmitting(false);
-        setProfile(res.data.user)
-        setIsLoggedIn(true);
-        setLoginPending(false);
-      }
+      setTimeout(async() => {
+        const res = await signIn(values.email, values.password);
+        // console.log(res.data);
+  
+        if (res.data.success) {
+          formikActions.resetForm();
+          formikActions.setSubmitting(false);
+          setProfile(res.data.user)
+          setIsLoggedIn(true);
+        }
+      },2000)
+      setLoginPending(false);
     } catch (error) {
       console.log('error inside of login', error);
     }
