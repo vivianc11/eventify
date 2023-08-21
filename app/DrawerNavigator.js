@@ -32,11 +32,13 @@ const CustomDrawer = (props) => {
         style={styles.logout} 
         onPress={async () => {
           setLoginPending(true);
-          const isLoggedOut = await logOut();
-          if (isLoggedOut){
-            setIsLoggedIn(false);
-          }
-          setLoginPending(false);
+          setTimeout(async () => {
+            const isLoggedOut = await logOut();
+            if (isLoggedOut){
+              setIsLoggedIn(false);
+            }
+            setLoginPending(false);
+          }, 2000)
         }}>
         <Text>Log Out</Text>
       </TouchableOpacity>

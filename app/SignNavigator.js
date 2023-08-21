@@ -21,7 +21,7 @@ const StackNavigator = () => {
 }
 
 export default function SignNavigator() {
-  const { isLoggedIn } = useLogin();
+  const { isLoggedIn, loginPending } = useLogin();
   return isLoggedIn ? 
     <>
     <DrawerNavigator /> 
