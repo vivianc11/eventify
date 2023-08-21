@@ -4,12 +4,13 @@ import * as ImagePicker from 'expo-image-picker';
 import client from "../api/client";
 import { StackActions } from '@react-navigation/native'
 import { useLogin } from "../context/LoginProvider";
+import UploadProgress from "./UploadProgress";
 
 
 const ImageUpload = (props) => {
 
   const [profileImage, setProfileImage] = useState(null);
-  // const [uploadProgress, setUploadProgress] = useState(0);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const { token } = props.route.params;
   const { setLoginPending, setIsLoggedIn } = useLogin();
 
@@ -28,7 +29,6 @@ const ImageUpload = (props) => {
   }
 
   const uploadProfileImage = async () => {
-    setLoginPending(true);
 
     // need to clean up data using FormData
     const formData = new FormData();
@@ -45,10 +45,10 @@ const ImageUpload = (props) => {
           // Need authorization because in backend, it requires auth to upload any profile pics
           Authorization: `JWT ${token}`,
         },
-        // onUploadProgress: ({ loaded, total }) => setUploadProgress(loaded/total)
+        onUploadProgress: ({ loaded, total }) => setUploadProgress(loaded / total)
       });
       console.log(res.data)
-      if(res.data.success){
+      if (res.data.success) {
         // props.navigation.dispatch(
         //   StackActions.replace('UserProfile')
         // );
@@ -63,24 +63,27 @@ const ImageUpload = (props) => {
   }
 
   return (
-    <View style={styles.container}>
-      <View>
-        {profileImage ? (
-          <Text onPress={pickImage} style={[styles.skipText, styles.different]}>Upload a Different Image</Text>
-        ) : null}
-        <TouchableOpacity onPress={pickImage} style={styles.uploadButtonContainer}>
-          {profileImage && <Image source={{ uri: profileImage }} style={{ width: 200, height: 200, borderRadius: 100 }} />}
-          {profileImage ? null : (
-            <Text style={styles.uploadButton}>Upload Profile Pic</Text>
-          )}
-        </TouchableOpacity>
-        {/* {progress ? <Text>{progess}</Text> : null} */}
-        <Text style={styles.skipText}>Skip</Text>
-        {profileImage ? (
-          <Text onPress={uploadProfileImage} style={styles.uploadText}>Upload</Text>
-        ) : null}
+    <>
+      <View style={styles.container}>
+        <View>
+          {profileImage ? (
+            <Text onPress={pickImage} style={[styles.skipText, styles.different]}>Upload a Different Image</Text>
+          ) : null}
+          <TouchableOpacity onPress={pickImage} style={styles.uploadButtonContainer}>
+            {profileImage && <Image source={{ uri: profileImage }} style={{ width: 200, height: 200, borderRadius: 100 }} />}
+            {profileImage ? null : (
+              <Text style={styles.uploadButton}>Upload Profile Pic</Text>
+            )}
+          </TouchableOpacity>
+          {/* {progress ? <Text>{progess}</Text> : null} */}
+          <Text style={styles.skipText}>Skip</Text>
+          {profileImage ? (
+            <Text onPress={uploadProfileImage} style={styles.uploadText}>Upload</Text>
+          ) : null}
+        </View>
+        {uploadProgress ? <UploadProgress process={uploadProgress} /> : null}
       </View>
-    </View>
+    </>
   )
 }
 
