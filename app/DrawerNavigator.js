@@ -5,6 +5,9 @@ import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '
 import { useLogin } from './context/LoginProvider';
 import { logOut } from './api/user';
 import TabNavigation from './TabNavigation';
+import Home from './components/Home';
+import ToDos from './components/ToDos';
+import Events from './components/Events';
 
 const Drawer = createDrawerNavigator();
 
@@ -63,7 +66,8 @@ export default function DrawerNavigator() {
         
         >
         <Drawer.Screen name="Home" component={TabNavigation} options={{drawerActiveTintColor: '#2A9D8F'}} />
-        <Drawer.Screen name="Todos" component={TabNavigation} options={{drawerActiveTintColor: '#2A9D8F'}} />
+        {/* <Drawer.Screen name="Todos" component={ToDos} options={{drawerActiveTintColor: '#2A9D8F'}} />
+        <Drawer.Screen name="Events" component={Events} options={{drawerActiveTintColor: '#2A9D8F'}} /> */}
       </Drawer.Navigator>
       
     )
