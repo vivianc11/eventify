@@ -57,11 +57,13 @@ export default function DrawerNavigator() {
         drawerContent={(props) => <CustomDrawer {...props} />}
         screenOptions={{
           headerStyle: {backgroundColor: 'transparent'},
-          headerTitle: ''
+          headerTitle: '',
+          headerTintColor: '#E76F51'
         }}
+        
         >
-        <Drawer.Screen name="Home" component={TabNavigation} />
-        <Drawer.Screen name="Todos" component={TabNavigation} />
+        <Drawer.Screen name="Home" component={TabNavigation} options={{drawerActiveTintColor: '#2A9D8F'}} />
+        <Drawer.Screen name="Todos" component={TabNavigation} options={{drawerActiveTintColor: '#2A9D8F'}} />
       </Drawer.Navigator>
       
     )
