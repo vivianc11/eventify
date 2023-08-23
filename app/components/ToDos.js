@@ -36,8 +36,11 @@ export default function ToDos() {
         [{ text: 'Understood', onPress: () => console.log('alert closed') }]
       )
     }
-
+    // api call to post to '/add-toDo'
+    // use AsyncStorage to get JWT token for auth
   }
+
+  // api call to get all todos from db to display
 
   return (
     <TouchableWithoutFeedback onPress={() => {
