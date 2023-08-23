@@ -3,10 +3,16 @@ import React from 'react'
 
 export default function Budget() {
   return (
-    <View>
-      <Text>Budget</Text>
+    <View style={styles.container}>
+      <Text>Calculate Your Budget Here!</Text>
     </View>
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+})
