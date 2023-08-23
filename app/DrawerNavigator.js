@@ -3,7 +3,7 @@ import React from 'react';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 
 import Home from './components/Home';
-import UserProfile from './components/UserProfile';
+import ToDos from './components/ToDos';
 import { useLogin } from './context/LoginProvider';
 import { logOut } from './api/user';
 
@@ -61,7 +61,7 @@ export default function DrawerNavigator() {
         }}
         >
         <Drawer.Screen name="Home" component={Home} />
-        <Drawer.Screen name="UserProfile" component={UserProfile} />
+        <Drawer.Screen name="Todos" component={ToDos} />
       </Drawer.Navigator>
     )
   }
