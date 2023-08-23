@@ -2,10 +2,9 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 
-import Home from './components/Home';
-import ToDos from './components/ToDos';
 import { useLogin } from './context/LoginProvider';
 import { logOut } from './api/user';
+import TabNavigation from './TabNavigation';
 
 const Drawer = createDrawerNavigator();
 
@@ -53,6 +52,7 @@ export default function DrawerNavigator() {
 
   const DrawerNavigator = () => {
     return (
+      
       <Drawer.Navigator 
         drawerContent={(props) => <CustomDrawer {...props} />}
         screenOptions={{
@@ -60,9 +60,10 @@ export default function DrawerNavigator() {
           headerTitle: ''
         }}
         >
-        <Drawer.Screen name="Home" component={Home} />
-        <Drawer.Screen name="Todos" component={ToDos} />
+        <Drawer.Screen name="Home" component={TabNavigation} />
+        <Drawer.Screen name="Todos" component={TabNavigation} />
       </Drawer.Navigator>
+      
     )
   }
 
